@@ -96,9 +96,9 @@ class Post
     /**
      * Set score
      *
-     * @param int $score
+     * @param integer $score
      */
-    public function setScore(\int $score)
+    public function setScore($score)
     {
         $this->score = $score;
     }
@@ -106,7 +106,7 @@ class Post
     /**
      * Get score
      *
-     * @return int 
+     * @return integer 
      */
     public function getScore()
     {
