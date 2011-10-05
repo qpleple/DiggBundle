@@ -22,44 +22,44 @@ class Url
     private $id;
 
     /**
-     * @var string $url
+     * @var string $address
      *
-     * @ORM\Column(name="url", type="string", length=255)
+     * @ORM\Column(name="address", type="string", length=255)
      */
-    private $url;
+    private $address;
 
     /**
-     * @var int $facebookScore
+     * @var integer $facebookScore
      *
-     * @ORM\Column(name="facebookScore", type="int")
+     * @ORM\Column(name="facebookScore", type="integer")
      */
     private $facebookScore;
 
     /**
-     * @var int $twitterScore
+     * @var integer $twitterScore
      *
-     * @ORM\Column(name="twitterScore", type="int")
+     * @ORM\Column(name="twitterScore", type="integer")
      */
     private $twitterScore;
 
     /**
-     * @var int $googleScore
+     * @var integer $googleScore
      *
-     * @ORM\Column(name="googleScore", type="int")
+     * @ORM\Column(name="googleScore", type="integer")
      */
     private $googleScore;
 
     /**
-     * @var int $diggScore
+     * @var integer $diggScore
      *
-     * @ORM\Column(name="diggScore", type="int")
+     * @ORM\Column(name="diggScore", type="integer")
      */
     private $diggScore;
 
     /**
-     * @var int $totalScore
+     * @var integer $totalScore
      *
-     * @ORM\Column(name="totalScore", type="int")
+     * @ORM\Column(name="totalScore", type="integer")
      */
     private $totalScore;
 
@@ -82,31 +82,31 @@ class Url
     }
 
     /**
-     * Set url
+     * Set address
      *
-     * @param string $url
+     * @param string $address
      */
-    public function setUrl($url)
+    public function setAddress($address)
     {
-        $this->url = $url;
+        $this->address = $address;
     }
 
     /**
-     * Get url
+     * Get address
      *
      * @return string 
      */
-    public function getUrl()
+    public function getAddress()
     {
-        return $this->url;
+        return $this->address;
     }
 
     /**
      * Set facebookScore
      *
-     * @param int $facebookScore
+     * @param integer $facebookScore
      */
-    public function setFacebookScore(\int $facebookScore)
+    public function setFacebookScore($facebookScore)
     {
         $this->facebookScore = $facebookScore;
     }
@@ -114,7 +114,7 @@ class Url
     /**
      * Get facebookScore
      *
-     * @return int 
+     * @return integer 
      */
     public function getFacebookScore()
     {
@@ -124,9 +124,9 @@ class Url
     /**
      * Set twitterScore
      *
-     * @param int $twitterScore
+     * @param integer $twitterScore
      */
-    public function setTwitterScore(\int $twitterScore)
+    public function setTwitterScore($twitterScore)
     {
         $this->twitterScore = $twitterScore;
     }
@@ -134,7 +134,7 @@ class Url
     /**
      * Get twitterScore
      *
-     * @return int 
+     * @return integer 
      */
     public function getTwitterScore()
     {
@@ -144,9 +144,9 @@ class Url
     /**
      * Set googleScore
      *
-     * @param int $googleScore
+     * @param integer $googleScore
      */
-    public function setGoogleScore(\int $googleScore)
+    public function setGoogleScore($googleScore)
     {
         $this->googleScore = $googleScore;
     }
@@ -154,7 +154,7 @@ class Url
     /**
      * Get googleScore
      *
-     * @return int 
+     * @return integer 
      */
     public function getGoogleScore()
     {
@@ -164,9 +164,9 @@ class Url
     /**
      * Set diggScore
      *
-     * @param int $diggScore
+     * @param integer $diggScore
      */
-    public function setDiggScore(\int $diggScore)
+    public function setDiggScore($diggScore)
     {
         $this->diggScore = $diggScore;
     }
@@ -174,7 +174,7 @@ class Url
     /**
      * Get diggScore
      *
-     * @return int 
+     * @return integer 
      */
     public function getDiggScore()
     {
@@ -184,9 +184,9 @@ class Url
     /**
      * Set totalScore
      *
-     * @param int $totalScore
+     * @param integer $totalScore
      */
-    public function setTotalScore(\int $totalScore)
+    public function setTotalScore($totalScore)
     {
         $this->totalScore = $totalScore;
     }
@@ -194,7 +194,7 @@ class Url
     /**
      * Get totalScore
      *
-     * @return int 
+     * @return integer 
      */
     public function getTotalScore()
     {
@@ -220,4 +220,52 @@ class Url
     {
         return $this->lastCheck;
     }
+
+
+
+	/**
+     *  update totalScore
+     *
+     * 
+     */
+    public function updateTotalScore()
+    {
+		$sum = $this->getFacebookScore() + $this->getTwitterScore() + $this->getDiggScore() + $this->getGoogleScore();
+        $this->setTotalScore($sum)
+    }
+
+
+    /**
+     * facebookScoreCheckAction() 
+     *
+     * 
+     */	public function facebookScoreCheckAction() {
+		
+		// example : http://graph.facebook.com/?ids=http://google.fr/
+		// we can retrieve multiple results, see http://graph.facebook.com/?ids=http://google.fr/,http://google.com
+		// could be cool to update lots of links at the same time
+	
+		$facebookUrlAsk = "http://graph.facebook.com/?ids=" . $this.getAddress();
+
+	    $jsonData = file_get_contents($facebookUrlAsk,0,null,null);
+	    $jsonAsArray = json_decode($jsonData,true);
+	    $lastCounts = (integer) $jsonAsArray[$address]['shares']; 
+				// surprisingly, here it's called 'shares' and not 'likes' 
+				// although it's the number of likes
+		if(not($lastCounts == $this->getFacebookScore())) {
+			$this->setFacebookScore($lastCounts);
+			$this->updateTotalScore();
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
 }
