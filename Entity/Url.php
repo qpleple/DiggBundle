@@ -236,10 +236,12 @@ class Url
 
 
     /**
-     * facebookScoreCheckAction() 
+     * facebookScoreCheck() 
      *
      * 
-     */	public function facebookScoreCheckAction() {
+     */	
+	public function facebookScoreCheck() 
+	{
 		
 		// example : http://graph.facebook.com/?ids=http://google.fr/
 		// we can retrieve multiple results, see http://graph.facebook.com/?ids=http://google.fr/,http://google.com
@@ -257,6 +259,34 @@ class Url
 			$this->updateTotalScore();
 		}
 	}
+	
+	
+    /**
+     * twitterScoreCheck() 
+     *
+     * 
+     */	
+	public function twitterScoreCheck() 
+	{
+		// example : http://otter.topsy.com/stats.js?url=http://qpleple.com
+		$twitterUrlAsk = "http://otter.topsy.com/stats.js?url=" . $this.getAddress();
+		
+		$jsonData = file_get_contents($twitterUrlAsk,0,null,null);
+		$jsonAsArray = json_decode($jsonData,true);
+		$lastCounts = (integer) $jsonAsArray['response']['all'];
+		if(not($lastCounts == $this->getTwitterScore())) {
+			$this->setTwitterScore($lastCounts);
+			$this->updateTotalScore();
+		}
+	}
+
+
+
+
+
+}
+
+
 
 
 
