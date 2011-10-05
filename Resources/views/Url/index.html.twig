@@ -1,0 +1,49 @@
+<h1>Url list</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Address</th>
+            <th>Facebookscore</th>
+            <th>Twitterscore</th>
+            <th>Googlescore</th>
+            <th>Diggscore</th>
+            <th>Totalscore</th>
+            <th>Lastcheck</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('url_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.address }}</td>
+            <td>{{ entity.facebookScore }}</td>
+            <td>{{ entity.twitterScore }}</td>
+            <td>{{ entity.googleScore }}</td>
+            <td>{{ entity.diggScore }}</td>
+            <td>{{ entity.totalScore }}</td>
+            <td>{% if entity.lastCheck %}{{ entity.lastCheck|date('Y-m-d H:i:s') }}{% endif%}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('url_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('url_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li>
+        <a href="{{ path('url_new') }}">
+            Create a new entry
+        </a>
+    </li>
+</ul>

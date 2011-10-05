@@ -20,7 +20,7 @@ class UrlRepository extends EntityRepository
     public function updateTotalScore()
     {
 		$sum = $this->getFacebookScore() + $this->getTwitterScore() + $this->getDiggScore() + $this->getGoogleScore();
-        $this->setTotalScore($sum)
+        $this->setTotalScore($sum);
     }
 
 

@@ -1,0 +1,57 @@
+<h1>Url</h1>
+
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <td>{{ entity.address }}</td>
+        </tr>
+        <tr>
+            <th>Facebookscore</th>
+            <td>{{ entity.facebookScore }}</td>
+        </tr>
+        <tr>
+            <th>Twitterscore</th>
+            <td>{{ entity.twitterScore }}</td>
+        </tr>
+        <tr>
+            <th>Googlescore</th>
+            <td>{{ entity.googleScore }}</td>
+        </tr>
+        <tr>
+            <th>Diggscore</th>
+            <td>{{ entity.diggScore }}</td>
+        </tr>
+        <tr>
+            <th>Totalscore</th>
+            <td>{{ entity.totalScore }}</td>
+        </tr>
+        <tr>
+            <th>Lastcheck</th>
+            <td>{{ entity.lastCheck|date('Y-m-d H:i:s') }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('url') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('url_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('url_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>
