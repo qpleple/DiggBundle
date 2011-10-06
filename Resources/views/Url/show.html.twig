@@ -47,6 +47,9 @@
         <a href="{{ path('url_edit', { 'id': entity.id }) }}">
             Edit
         </a>
+		<a href="{{ path('url_check', { 'id': entity.id }) }}">
+            Check social score
+        </a>
     </li>
     <li>
         <form action="{{ path('url_delete', { 'id': entity.id }) }}" method="post">
