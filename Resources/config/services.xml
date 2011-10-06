@@ -17,4 +17,9 @@
         </service>
     </services>
     -->
+    
+    <services>
+        <service id="acme_digg.fetcher" class="Acme\DiggBundle\Utils\Fetcher"></service>
+    </services>
+    
 </container>
