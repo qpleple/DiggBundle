@@ -31,6 +31,33 @@ class UrlController extends Controller
         return array('entities' => $entities);
     }
 
+	/**
+     * check social score of Url entity
+     *
+     * @Route("/{id}/check", name="url_check")
+     * @Template()
+     */
+	public function checkAction($id)
+ 	{
+    $em = $this->getDoctrine()->getEntityManager();
+
+    $entity = $em->getRepository('AcmeDiggBundle:Url')->find($id);
+
+    if (!$entity) {
+         throw $this->createNotFoundException('Unable to find Url entity.');
+    }
+
+    $fetcher = $this->get('acme_digg.fetcher');
+	$fetcher->twitterScoreCheck($entity);
+	$fetcher->googleScoreCheck($entity); 
+	$fetcher->facebookScoreCheck($entity);
+	
+	$em->persist($entity);
+    $em->flush();
+    return $this->redirect($this->generateUrl('url_show', array('id' => $id)));
+ }
+	
+
     /**
      * Finds and displays a Url entity.
      *
