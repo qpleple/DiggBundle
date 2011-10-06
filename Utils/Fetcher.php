@@ -1,5 +1,5 @@
 <?php
-namespace Acme\DiggBundle\Fetcher;
+namespace Acme\DiggBundle\Utils;
 
 class Fetcher
 {
